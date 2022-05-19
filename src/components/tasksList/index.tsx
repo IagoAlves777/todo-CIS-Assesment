@@ -4,6 +4,7 @@ import { CardTask } from "../cardTask";
 import { useTask } from "../../contexts/todoContext";
 import { useState } from "react";
 import { ModalNewTask } from "../modalNewTask";
+
 export const TaskList = () => {
   const { state, dispatch } = useTask();
   const [showModalNewTask, setShowModalNewTask] = useState(false);
@@ -25,7 +26,13 @@ export const TaskList = () => {
       <div className="footer" onClick={() => setShowModalNewTask(true)}>
         <h2>➕ Adicionar nova tarefa</h2>
       </div>
-      <ModalNewTask show={showModalNewTask} handleClose={closeModal} />
+      <ModalNewTask
+        edit={false}
+        show={showModalNewTask}
+        handleClose={closeModal}
+        title={""}
+        description={""}
+      />
     </C.Container>
   );
 };

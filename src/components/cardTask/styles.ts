@@ -1,6 +1,12 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+type ContainerProps = {
+  check: boolean;
+};
+
+export const Container = styled.div(
+  ({ check }: ContainerProps) =>
+    `
   cursor: pointer;
   color: #172b4d;
   margin: 5px;
@@ -8,6 +14,7 @@ export const Container = styled.div`
   .card-body {
     display: flex;
     align-items: center;
+    text-decoration: ${check ? "line-through" : "initial"}
   }
   .card-title {
     font-weight: 900;
@@ -20,4 +27,10 @@ export const Container = styled.div`
   .form-check-input:focus {
     box-shadow: none;
   }
-`;
+
+  .contentCard {
+    cursor: pointer;
+    width: 100%;
+  }
+`
+);

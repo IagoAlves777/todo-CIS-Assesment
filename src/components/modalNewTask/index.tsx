@@ -4,19 +4,33 @@ import { toDoActions, useTask } from "../../contexts/todoContext";
 import * as C from "./styles";
 
 type Props = {
+  title: string;
+  description: string;
   show: boolean;
+  edit: boolean;
   handleClose: () => void;
 };
 
-export const ModalNewTask = ({ show, handleClose }: Props) => {
+export const ModalNewTask = ({
+  edit,
+  show,
+  handleClose,
+  title,
+  description,
+}: Props) => {
   const { state, dispatch } = useTask();
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [newtitle, setNewTitle] = useState("");
+  const [newdescription, setNewDescription] = useState("");
 
   const resetModal = () => {
-    setTitle("");
-    setDescription("");
+    setNewTitle("");
+    setNewDescription("");
   };
+
+  useEffect(() => {
+    setNewTitle(title);
+    setNewDescription(description);
+  }, []);
 
   const creatTask = () => {
     const newTask = {
@@ -44,22 +58,26 @@ export const ModalNewTask = ({ show, handleClose }: Props) => {
           <Form.Control
             type="text"
             placeholder="Insira um título para este cartão..."
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            value={newtitle}
+            onChange={(e) => setNewTitle(e.target.value)}
           />
           <C.Description>Descrição</C.Description>
           <Form.Control
             as="textarea"
             rows={7}
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            value={newdescription}
+            onChange={(e) => setNewDescription(e.target.value)}
           />
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" size="sm" onClick={handleClose}>
             Cancelar
           </Button>
-          <Button variant="primary" size="sm" onClick={creatTask}>
+          <Button
+            variant="primary"
+            size="sm"
+            onClick={edit ? handleClose : creatTask}
+          >
             Adicionar
           </Button>
         </Modal.Footer>

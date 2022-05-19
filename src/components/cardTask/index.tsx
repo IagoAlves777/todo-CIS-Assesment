@@ -24,6 +24,7 @@ export const CardTask = ({ id, title, description, check }: Props) => {
       description: description,
       check: e,
     };
+
     const newTasks = state.tasks;
     newTasks.splice(id, 1, updatedTask);
     dispatch({
@@ -33,11 +34,8 @@ export const CardTask = ({ id, title, description, check }: Props) => {
   };
 
   return (
-    <C.Container>
-      <Card
-        style={{ width: "18rem" }}
-        onClick={() => setShowModalEditTask(true)}
-      >
+    <C.Container check={check}>
+      <Card style={{ width: "18rem" }}>
         <Card.Body>
           <Form.Check
             inline
@@ -46,13 +44,22 @@ export const CardTask = ({ id, title, description, check }: Props) => {
             checked={check}
             onChange={(e) => handleChangeCheck(e.target.checked)}
           />
-          <div>
+          <div
+            className="contentCard"
+            onClick={() => setShowModalEditTask(true)}
+          >
             <Card.Title>{title}</Card.Title>
             <Card.Text>{description}</Card.Text>
           </div>
         </Card.Body>
       </Card>
-      <ModalNewTask show={showModalEditTask} handleClose={closeModal} />
+      <ModalNewTask
+        edit={true}
+        show={showModalEditTask}
+        handleClose={closeModal}
+        title={title}
+        description={description}
+      />
     </C.Container>
   );
 };
