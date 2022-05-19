@@ -4,35 +4,41 @@ import { toDoActions, useTask } from "../../contexts/todoContext";
 import * as C from "./styles";
 
 type Props = {
-  title: string;
-  description: string;
   show: boolean;
-  edit: boolean;
   handleClose: () => void;
 };
 
-export const ModalNewTask = ({
-  edit,
-  show,
-  handleClose,
-  title,
-  description,
-}: Props) => {
+export const ModalNewTask = ({ show, handleClose }: Props) => {
   const { state, dispatch } = useTask();
-  const [newtitle, setNewTitle] = useState("");
-  const [newdescription, setNewDescription] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [invalidTitle, setInvalidTitle] = useState(false);
 
-  const resetModal = () => {
-    setNewTitle("");
-    setNewDescription("");
+  const titleIsInvalid = () => {
+    if (title === "") {
+      setInvalidTitle(true);
+      return true;
+    } else {
+      setInvalidTitle(false);
+      return false;
+    }
   };
 
   useEffect(() => {
-    setNewTitle(title);
-    setNewDescription(description);
-  }, []);
+    if (invalidTitle && title != "") {
+      setInvalidTitle(false);
+    }
+  }, [title]);
+
+  const resetModal = () => {
+    setTitle("");
+    setDescription("");
+    handleClose();
+    setInvalidTitle(false);
+  };
 
   const creatTask = () => {
+    if (titleIsInvalid()) return;
     const newTask = {
       id: state.tasks.length,
       title: title,
@@ -45,7 +51,6 @@ export const ModalNewTask = ({
       type: toDoActions.createTask,
       payload: newTasks,
     });
-    handleClose();
     resetModal();
   };
   return (
@@ -58,26 +63,23 @@ export const ModalNewTask = ({
           <Form.Control
             type="text"
             placeholder="Insira um título para este cartão..."
-            value={newtitle}
-            onChange={(e) => setNewTitle(e.target.value)}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            isInvalid={invalidTitle}
           />
           <C.Description>Descrição</C.Description>
           <Form.Control
             as="textarea"
             rows={7}
-            value={newdescription}
-            onChange={(e) => setNewDescription(e.target.value)}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
           />
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" size="sm" onClick={handleClose}>
+          <Button variant="secondary" size="sm" onClick={resetModal}>
             Cancelar
           </Button>
-          <Button
-            variant="primary"
-            size="sm"
-            onClick={edit ? handleClose : creatTask}
-          >
+          <Button variant="primary" size="sm" onClick={creatTask}>
             Adicionar
           </Button>
         </Modal.Footer>

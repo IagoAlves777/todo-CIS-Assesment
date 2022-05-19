@@ -11,6 +11,7 @@ export const Container = styled.div(
   color: #172b4d;
   margin: 5px;
   margin-bottom: 0px;
+  width: 100%;
   .card-body {
     display: flex;
     align-items: center;

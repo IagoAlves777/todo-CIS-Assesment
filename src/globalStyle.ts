@@ -15,6 +15,7 @@ export default createGlobalStyle`
   }
 
   body{
+    padding: 30px;
     background-color: #282c34;
     min-height: 100vh;
     display: flex;

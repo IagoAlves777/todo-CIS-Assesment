@@ -25,15 +25,8 @@ type TaskProviderProps = {
   children: ReactNode;
 };
 
-const initialTask: Task = {
-  id: 0,
-  title: "Task inicial",
-  description: "text da task inicial",
-  check: true,
-};
-
 const initialData: State = {
-  tasks: [initialTask],
+  tasks: [],
 };
 
 const ToDoContext = createContext<ContextType | undefined>(undefined);

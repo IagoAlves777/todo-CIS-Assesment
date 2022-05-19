@@ -1,8 +1,8 @@
 import * as C from "./styles";
-import { Button, Card, Form } from "react-bootstrap";
-import { ModalNewTask } from "../modalNewTask";
-import { ChangeEvent, useState } from "react";
+import { Card, Form } from "react-bootstrap";
+import { useState } from "react";
 import { toDoActions, useTask } from "../../contexts/todoContext";
+import { ModalEditTask } from "../modalEditTask";
 
 type Props = {
   id: number;
@@ -16,6 +16,13 @@ export const CardTask = ({ id, title, description, check }: Props) => {
   const [showModalEditTask, setShowModalEditTask] = useState(false);
   const closeModal = () => {
     setShowModalEditTask(false);
+  };
+
+  const task = {
+    id: id,
+    title: title,
+    description: description,
+    check: check,
   };
   const handleChangeCheck = (e: boolean) => {
     const updatedTask = {
@@ -35,7 +42,7 @@ export const CardTask = ({ id, title, description, check }: Props) => {
 
   return (
     <C.Container check={check}>
-      <Card style={{ width: "18rem" }}>
+      <Card style={{ width: "100%" }}>
         <Card.Body>
           <Form.Check
             inline
@@ -53,12 +60,10 @@ export const CardTask = ({ id, title, description, check }: Props) => {
           </div>
         </Card.Body>
       </Card>
-      <ModalNewTask
-        edit={true}
+      <ModalEditTask
         show={showModalEditTask}
         handleClose={closeModal}
-        title={title}
-        description={description}
+        task={task}
       />
     </C.Container>
   );
