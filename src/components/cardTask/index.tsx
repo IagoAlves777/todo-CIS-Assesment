@@ -3,6 +3,7 @@ import { Card, Form } from "react-bootstrap";
 import { useState } from "react";
 import { toDoActions, useTask } from "../../contexts/todoContext";
 import { ModalEditTask } from "../modalEditTask";
+import { KEY } from "../../contexts/todoContext";
 
 type Props = {
   id: number;
@@ -38,6 +39,7 @@ export const CardTask = ({ id, title, description, check }: Props) => {
       type: toDoActions.editTask,
       payload: newTasks,
     });
+    localStorage.setItem(KEY, JSON.stringify(state.tasks));
   };
 
   return (

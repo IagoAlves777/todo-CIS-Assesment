@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { toDoActions, useTask } from "../../contexts/todoContext";
+import { KEY } from "../../contexts/todoContext";
 import * as C from "./styles";
 
 type Props = {
@@ -52,6 +53,7 @@ export const ModalEditTask = ({ show, handleClose, task }: Props) => {
       type: toDoActions.editTask,
       payload: newTasks,
     });
+    localStorage.setItem(KEY, JSON.stringify(state.tasks));
     handleClose();
   };
 
@@ -62,6 +64,7 @@ export const ModalEditTask = ({ show, handleClose, task }: Props) => {
       type: toDoActions.deleteTask,
       payload: newTasks,
     });
+    localStorage.setItem(KEY, JSON.stringify(state.tasks));
     handleClose();
   };
   return (
@@ -95,7 +98,7 @@ export const ModalEditTask = ({ show, handleClose, task }: Props) => {
               Cancelar
             </Button>
             <Button variant="primary" size="sm" onClick={editTask}>
-              Adicionar
+              Salvar
             </Button>
           </div>
         </C.Container>

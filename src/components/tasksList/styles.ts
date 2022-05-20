@@ -31,7 +31,7 @@ export const Container = styled.div`
     display: flex;
     justify-content: start;
     width: 100%;
-    margin-top: 200px;
+    margin-top: 30px;
     cursor: pointer;
     transition: opacity 0.7s;
   }

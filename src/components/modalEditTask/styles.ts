@@ -7,7 +7,7 @@ export const Container = styled.div`
 
   .buttons {
     display: flex;
-    width: 35%;
+    width: 31%;
     justify-content: space-between;
   }
 `;

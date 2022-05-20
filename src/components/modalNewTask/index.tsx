@@ -24,6 +24,26 @@ export const ModalNewTask = ({ show, handleClose }: Props) => {
     }
   };
 
+  const localStorageList = [];
+  for (var i = 0; i < localStorage.length; i++) {
+    localStorageList.push(localStorage.key(i));
+  }
+
+  const haveTheKey = localStorageList.filter(function (item) {
+    return item === KEY;
+  });
+
+  useEffect(() => {
+    if (haveTheKey.length > 0) {
+      // @ts-ignore
+      const initialTask = JSON.parse(localStorage.getItem(KEY));
+      dispatch({
+        type: toDoActions.editTask,
+        payload: initialTask,
+      });
+    }
+  }, []);
+
   useEffect(() => {
     if (invalidTitle && title != "") {
       setInvalidTitle(false);
@@ -51,7 +71,6 @@ export const ModalNewTask = ({ show, handleClose }: Props) => {
       type: toDoActions.createTask,
       payload: newTasks,
     });
-
     localStorage.setItem(KEY, JSON.stringify(state.tasks));
     resetModal();
   };
