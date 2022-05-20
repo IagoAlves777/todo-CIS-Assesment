@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
-import { toDoActions, useTask } from "../../contexts/todoContext";
+import { toDoActions, useTask, KEY } from "../../contexts/todoContext";
 import * as C from "./styles";
 
 type Props = {
@@ -51,6 +51,8 @@ export const ModalNewTask = ({ show, handleClose }: Props) => {
       type: toDoActions.createTask,
       payload: newTasks,
     });
+
+    localStorage.setItem(KEY, JSON.stringify(state.tasks));
     resetModal();
   };
   return (

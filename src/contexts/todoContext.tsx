@@ -1,4 +1,12 @@
-import { createContext, ReactNode, useContext, useReducer } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useReducer,
+} from "react";
+
+export const KEY = "ToDoList";
 
 type Task = {
   id: number;
@@ -26,7 +34,8 @@ type TaskProviderProps = {
 };
 
 const initialData: State = {
-  tasks: [],
+  // @ts-ignore
+  tasks: JSON.parse(localStorage.getItem(KEY)),
 };
 
 const ToDoContext = createContext<ContextType | undefined>(undefined);
