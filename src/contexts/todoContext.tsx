@@ -1,5 +1,4 @@
 import { createContext, ReactNode, useContext, useReducer } from "react";
-
 export const KEY = "ToDoList";
 
 type Task = {
