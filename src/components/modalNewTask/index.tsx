@@ -13,22 +13,10 @@ export const ModalNewTask = ({ show, handleClose }: Props) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [invalidTitle, setInvalidTitle] = useState(false);
-
-  const titleIsInvalid = () => {
-    if (title === "") {
-      setInvalidTitle(true);
-      return true;
-    } else {
-      setInvalidTitle(false);
-      return false;
-    }
-  };
-
   const localStorageList = [];
   for (var i = 0; i < localStorage.length; i++) {
     localStorageList.push(localStorage.key(i));
   }
-
   const haveTheKey = localStorageList.filter(function (item) {
     return item === KEY;
   });
@@ -57,6 +45,16 @@ export const ModalNewTask = ({ show, handleClose }: Props) => {
     setInvalidTitle(false);
   };
 
+  const titleIsInvalid = () => {
+    if (title === "") {
+      setInvalidTitle(true);
+      return true;
+    } else {
+      setInvalidTitle(false);
+      return false;
+    }
+  };
+
   const creatTask = () => {
     if (titleIsInvalid()) return;
     const newTask = {
@@ -64,6 +62,7 @@ export const ModalNewTask = ({ show, handleClose }: Props) => {
       title: title,
       description: description,
       check: false,
+      date: new Date(),
     };
     const newTasks = state.tasks;
     newTasks.push(newTask);

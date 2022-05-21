@@ -7,7 +7,6 @@ import { CardNoTasks } from "../cardNoTasks";
 
 export const TaskList = () => {
   const { state, dispatch } = useTask();
-
   const [showModalNewTask, setShowModalNewTask] = useState(false);
   const closeModal = () => {
     setShowModalNewTask(false);
@@ -23,6 +22,7 @@ export const TaskList = () => {
               id={task.id}
               title={task.title}
               description={task.description}
+              date={task.date}
               check={task.check}
             />
           ))

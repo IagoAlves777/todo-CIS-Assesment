@@ -50,6 +50,7 @@ export const ModalEditTask = ({ show, handleClose, task }: Props) => {
       title: title,
       description: description,
       check: task.check,
+      date: new Date(),
     };
 
     const newTasks = state.tasks;

@@ -4,15 +4,17 @@ import { useState } from "react";
 import { toDoActions, useTask } from "../../contexts/todoContext";
 import { ModalEditTask } from "../modalEditTask";
 import { KEY } from "../../contexts/todoContext";
+import { formatDate, formatHour } from "../../helpers/date";
 
 type Props = {
   id: number;
   title: string;
   description: string;
+  date: Date;
   check: boolean;
 };
 
-export const CardTask = ({ id, title, description, check }: Props) => {
+export const CardTask = ({ id, title, description, check, date }: Props) => {
   const { state, dispatch } = useTask();
   const [showModalEditTask, setShowModalEditTask] = useState(false);
   const closeModal = () => {
@@ -24,6 +26,7 @@ export const CardTask = ({ id, title, description, check }: Props) => {
     title: title,
     description: description,
     check: check,
+    date: date,
   };
   const handleChangeCheck = (e: boolean) => {
     const updatedTask = {
@@ -31,14 +34,11 @@ export const CardTask = ({ id, title, description, check }: Props) => {
       title: title,
       description: description,
       check: e,
+      date: new Date(),
     };
 
     const newTasks = state.tasks;
     newTasks.splice(id, 1, updatedTask);
-    console.log(
-      "🚀 ~ file: index.tsx ~ line 38 ~ handleChangeCheck ~ newTasks",
-      newTasks
-    );
     dispatch({
       type: toDoActions.editTask,
       payload: newTasks,
@@ -65,6 +65,9 @@ export const CardTask = ({ id, title, description, check }: Props) => {
             <Card.Text>{description}</Card.Text>
           </div>
         </Card.Body>
+        <div className="changeDate">
+          <h2>{formatDate(date) + "\n" + formatHour(date).toString()}</h2>
+        </div>
       </Card>
       <ModalEditTask
         show={showModalEditTask}
