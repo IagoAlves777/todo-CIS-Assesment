@@ -1,13 +1,13 @@
 import * as C from "./styles";
-import { Button, Card, Form } from "react-bootstrap";
 import { CardTask } from "../cardTask";
-import { useTask } from "../../contexts/todoContext";
+import { toDoActions, useTask, KEY } from "../../contexts/todoContext";
 import { useEffect, useState } from "react";
 import { ModalNewTask } from "../modalNewTask";
 import { CardNoTasks } from "../cardNoTasks";
 
 export const TaskList = () => {
   const { state, dispatch } = useTask();
+
   const [showModalNewTask, setShowModalNewTask] = useState(false);
   const closeModal = () => {
     setShowModalNewTask(false);

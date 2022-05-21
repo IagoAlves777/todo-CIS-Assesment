@@ -12,8 +12,8 @@ type Props = {
 
 export const ModalEditTask = ({ show, handleClose, task }: Props) => {
   const { state, dispatch } = useTask();
-  const [title, setTitle] = useState(task.title);
-  const [description, setDescription] = useState(task.description);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const [invalidTitle, setInvalidTitle] = useState(false);
 
   const resetModal = () => {
@@ -21,6 +21,11 @@ export const ModalEditTask = ({ show, handleClose, task }: Props) => {
     setTitle(task.title);
     setDescription(task.description);
   };
+
+  useEffect(() => {
+    setTitle(task.title);
+    setDescription(task.description);
+  }, [state]);
 
   const titleIsInvalid = () => {
     if (title === "") {
@@ -60,11 +65,17 @@ export const ModalEditTask = ({ show, handleClose, task }: Props) => {
   const deleteTask = () => {
     const newTasks = state.tasks;
     newTasks.splice(task.id, 1);
+    const auxNewTasks = newTasks.map(function (task, index) {
+      return (task = {
+        ...task,
+        id: index,
+      });
+    });
     dispatch({
       type: toDoActions.deleteTask,
-      payload: newTasks,
+      payload: auxNewTasks,
     });
-    localStorage.setItem(KEY, JSON.stringify(state.tasks));
+    localStorage.setItem(KEY, JSON.stringify(auxNewTasks));
     handleClose();
   };
   return (

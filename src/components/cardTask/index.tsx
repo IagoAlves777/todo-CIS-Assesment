@@ -35,6 +35,10 @@ export const CardTask = ({ id, title, description, check }: Props) => {
 
     const newTasks = state.tasks;
     newTasks.splice(id, 1, updatedTask);
+    console.log(
+      "🚀 ~ file: index.tsx ~ line 38 ~ handleChangeCheck ~ newTasks",
+      newTasks
+    );
     dispatch({
       type: toDoActions.editTask,
       payload: newTasks,
