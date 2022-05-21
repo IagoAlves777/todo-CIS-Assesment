@@ -84,9 +84,10 @@ export const ModalEditTask = ({ show, handleClose, task }: Props) => {
         <Modal.Title>Adicionar uma nova tarefa</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        <C.Title>*Título</C.Title>
         <Form.Control
           type="text"
-          placeholder="Insira um título para este cartão..."
+          placeholder="Insira um título para atividade..."
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           isInvalid={invalidTitle}
@@ -94,6 +95,7 @@ export const ModalEditTask = ({ show, handleClose, task }: Props) => {
         <C.Description>Descrição</C.Description>
         <Form.Control
           as="textarea"
+          placeholder="Insira uma descrição"
           rows={7}
           value={description}
           onChange={(e) => setDescription(e.target.value)}

@@ -7,3 +7,8 @@ export const Description = styled.h2`
   margin-bottom: 6px;
   font-size: 1rem;
 `;
+
+export const Title = styled.h2`
+  margin-bottom: 6px;
+  font-size: 1rem;
+`;
